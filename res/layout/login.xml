@@ -4,53 +4,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <Button
             android:id="@+id/login"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="20dp"
+            android:layout_above="@+id/register"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="22dp"
             android:text="login" />
 
         <Button
             android:id="@+id/register"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/login"
-            android:layout_alignBottom="@+id/login"
-            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/login"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="134dp"
             android:text="new user" />
 
-        <Button
-            android:id="@+id/btnRead"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/register"
-            android:layout_alignBottom="@+id/register"
-            android:layout_alignParentRight="true"
-            android:text="Read" />
+            android:layout_above="@+id/password"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="33dp"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/login"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:inputType="textPassword" >
+
+            <requestFocus />
+        </EditText>
 
     </RelativeLayout>
 

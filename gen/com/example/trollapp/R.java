@@ -21,25 +21,41 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int joker=0x7f020001;
+        public static final int a1=0x7f020000;
+        public static final int a2=0x7f020001;
+        public static final int a3=0x7f020002;
+        public static final int a4=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int joker=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f080009;
+        public static final int action_settings=0x7f080013;
+        public static final int btnCamera=0x7f080012;
         public static final int btnPhoto=0x7f080000;
-        public static final int btnRead=0x7f080008;
-        public static final int btnVideo=0x7f080001;
-        public static final int etText=0x7f080003;
-        public static final int ivPhoto=0x7f080002;
-        public static final int login=0x7f080006;
-        public static final int password=0x7f080005;
-        public static final int register=0x7f080007;
-        public static final int username=0x7f080004;
+        public static final int ivDisplay=0x7f080008;
+        public static final int ivImage1=0x7f080009;
+        public static final int ivImage2=0x7f08000a;
+        public static final int ivImage3=0x7f08000b;
+        public static final int ivImage4=0x7f08000c;
+        public static final int ivImage5=0x7f08000d;
+        public static final int ivImage6=0x7f08000e;
+        public static final int ivImage7=0x7f08000f;
+        public static final int ivImage8=0x7f080010;
+        public static final int ivImage9=0x7f080011;
+        public static final int ivPhoto=0x7f080001;
+        public static final int layoutq=0x7f080007;
+        public static final int login=0x7f080003;
+        public static final int lstView=0x7f080002;
+        public static final int password=0x7f080006;
+        public static final int register=0x7f080004;
+        public static final int username=0x7f080005;
     }
     public static final class layout {
         public static final int camera=0x7f030000;
         public static final int login=0x7f030001;
         public static final int main=0x7f030002;
+        public static final int picedit=0x7f030003;
+        public static final int picview=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f070000;

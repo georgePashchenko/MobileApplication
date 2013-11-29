@@ -1,26 +1,15 @@
 package com.example.trollapp;
 
-import java.io.File;
-
-import android.app.Activity; 
-import android.content.ContentValues; 
-import android.content.Context; 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor; 
-import android.database.sqlite.SQLiteDatabase; 
-import android.database.sqlite.SQLiteOpenHelper; 
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.net.NetworkInfo.DetailedState;
-import android.os.Bundle; 
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log; 
-import android.view.View; 
-import android.view.View.OnClickListener; 
-import android.widget.Button; 
-import android.widget.EditText; 
-import android.widget.ImageView;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener{
@@ -45,8 +34,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		btnLog.setOnClickListener(this);
 		btnReg = (Button) findViewById(R.id.register);    
 		btnReg.setOnClickListener(this);
-		btnRead = (Button) findViewById(R.id.btnRead);
-		btnRead.setOnClickListener(this);
+		//btnRead = (Button) findViewById(R.id.btnRead);
+		//btnRead.setOnClickListener(this);
 
 		etLogin = (EditText) findViewById(R.id.username);  
 		etPassword = (EditText) findViewById(R.id.password);  
@@ -75,7 +64,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		// выводим результат объединения
 		// используем query
-		Log.d(LOG_TAG, "--- INNER JOIN with query---");
+		Log.d(LOG_TAG, "---a INNER JOIN with query---");
 		String table = "people as PL inner join peopledata as PD on PD.posid = PL.id";
 		String columns[] = { "PL.name as Name", "PL.password as Password", "PD.data as UserData" };
 		c = db.query(table, columns, null, null, null, null, null);
@@ -104,6 +93,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			Log.d(LOG_TAG, "--> btnRegister");      
 			if (dbh.AddUser(db, name, password)){
 			//переход
+
 			Intent intent = new Intent(this, Camera.class);
 			startActivity(intent);
 			finish();
@@ -115,7 +105,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		case R.id.login:      
 			Log.d(LOG_TAG, "--> btnLogin"); 
 			if (dbh.getCheck(db, name, password)){
-				Log.d(LOG_TAG, "1");
+				Intent intent = new Intent(this, ImageActivity.class);
+				startActivity(intent);
+				finish();
 				Toast.makeText(getApplicationContext(), "Access granted", Toast.LENGTH_SHORT).show();
 			}
 			else{
@@ -123,13 +115,16 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 			break;
 
-		case R.id.btnRead:
+		/**case R.id.btnRead:
 			Log.d(LOG_TAG, "--> btnRead");
 			Cursor c = db.query("people", null, null, null, null, null, null);
 			logCursor(c);
 			c.close();
-		}  
-
+			Intent intent = new Intent(this, ImageActivity.class);
+			startActivity(intent);
+			finish();
+		}  */
+		}
 		// закрываем подключение к БД    
 		dbh.close();
 	}

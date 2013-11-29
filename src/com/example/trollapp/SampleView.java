@@ -2,19 +2,24 @@ package com.example.trollapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.util.FloatMath;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 public class SampleView extends View {
     private static final int WIDTH = 20;
     private static final int HEIGHT = 20;
     private static final int COUNT = (WIDTH + 1) * (HEIGHT + 1);
 
-    private final Bitmap mBitmap;
+    private Bitmap mBitmap;
     private final float[] mVerts = new float[COUNT*2];
     private final float[] mOrig = new float[COUNT*2];
 
@@ -26,13 +31,35 @@ public class SampleView extends View {
         array[index*2 + 1] = y;
     }
 
-    public SampleView(Context context) {
+    public SampleView(Context context, int ids, int newW, int newH) {
         super(context);
         setFocusable(true);
+       
+        //Options options = new BitmapFactory.Options();
+        //options.inScaled = true;
+        //Bitmap source = BitmapFactory.decodeResource(a.getResources(), path, options);
+        
+        
+        int newWidth = newW;
+        int newHeight = newH-100;
+        
+        mBitmap = BitmapFactory.decodeResource(getResources(),ids);
+        Bitmap  scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Config.ARGB_8888);
 
-        mBitmap = BitmapFactory.decodeResource(getResources(),
-                                                 R.drawable.joker);
+        float ratioX = newWidth / (float) mBitmap.getWidth();
+        float ratioY = newHeight / (float) mBitmap.getHeight();
+        float middleX = newWidth / 2.0f;
+        float middleY = newHeight / 2.0f;
 
+        Matrix scaleMatrix = new Matrix();
+        scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
+        
+        Canvas canvas = new Canvas(scaledBitmap);
+        canvas.setMatrix(scaleMatrix);
+        canvas.drawBitmap(mBitmap, middleX - mBitmap.getWidth() / 2, middleY - mBitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
+        
+        mBitmap = scaledBitmap;
+        
         float w = mBitmap.getWidth();
         float h = mBitmap.getHeight();
         // construct our mesh
@@ -52,15 +79,16 @@ public class SampleView extends View {
     }
 
     @Override protected void onDraw(Canvas canvas) {
-        canvas.drawColor(0xFFCCCCCC);
+    	//canvas.drawColor(0xFFCCCCCC);
 
         canvas.concat(mMatrix);
         canvas.drawBitmapMesh(mBitmap, WIDTH, HEIGHT, mVerts, 0,
                               null, 0, null);
+
     }
 
     private void warp(float cx, float cy) {
-        final float K = 1000;
+        final float K = 70000;
         float[] src = mOrig;
         float[] dst = mVerts;
         for (int i = 0; i < COUNT*2; i += 2) {

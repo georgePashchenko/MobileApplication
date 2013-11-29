@@ -1,13 +1,14 @@
 package com.example.trollapp;
 
-import android.R.bool;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 class DBHelper extends SQLiteOpenHelper {
 
@@ -170,7 +171,6 @@ class DBHelper extends SQLiteOpenHelper {
 	public void getReadUserData(SQLiteDatabase db, int UserId){
 		String selection = null;
 		String[] selectionArgs = null;
-		String[] colums = null;
 		
 		Log.d(LOG_TAG, "--- Reading user data ---");
 		selection = "posid = ?";
@@ -180,6 +180,35 @@ class DBHelper extends SQLiteOpenHelper {
 		logCursor(c);
 		c.close();
 
+	}
+	
+	public List<String> getUserData (int UserId,SQLiteDatabase db ){
+		List <String> UserData= new ArrayList();
+    	
+		String selection = null;
+		String[] selectionArgs = null;
+		
+		Log.d(LOG_TAG, "--- Reading user (" +UserId+  ") data --- ");
+		selection = "posid = ?";
+		selectionArgs  = new String[] { Integer.toString(UserId)};
+		String columns[] = { "posid"};
+		Cursor c = db.query("peopledata", null, selection, selectionArgs, null, null, null);
+		if (c != null) {
+			if (c.moveToFirst()) {
+				int idColData = c.getColumnIndex("data");        
+				//int nameColIndex = c.getColumnIndex("name");        
+				//int passColIndex = c.getColumnIndex("password");  
+								
+				do {
+					String data = c.getString(idColData);
+					UserData.add(data);
+					Log.d(LOG_TAG, "UserFile = " + data);
+				} while (c.moveToNext());
+			}
+		} else
+			Log.d(LOG_TAG, "Cursor is null");
+		c.close();
+		return UserData;
 	}
 	
 	// вывод в лог данных из курсора
